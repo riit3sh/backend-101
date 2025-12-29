@@ -1,0 +1,26 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "backend-101 class",
+  "homepage": "https://github.com/riit3sh/backend-101#readme",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/riit3sh/backend-101/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/riit3sh/backend-101.git"
+  },
+  "license": "ISC",
+  "author": "Ritesh Subramanian",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev":"nodemon src/index.js"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.3",
+    "express": "^5.2.1",
+    "mongoose": "^9.0.2"
+  }
+}
