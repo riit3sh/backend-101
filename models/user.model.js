@@ -1,5 +1,5 @@
 import mongoose, {Schema} from "mongoose";
-
+import bcrypt from "bcrypt";
 
 const userSchema =new Schema(
     {
@@ -27,14 +27,33 @@ const userSchema =new Schema(
             maxlength:100,
             trim:true,
             lowercase:true
-        }
+        },
 
+       
 
     },
 
 
     {timestamps:true}
 )
+
+
+userSchema.pre("save", async function() {
+    if (!this.isModified("password")) return;
+    this.password = await bcrypt.hash(this.password, 10);
+});
+
+
+userSchema.methods.comparePassword = async function(candidatePassword) {
+    // Guard against missing inputs to avoid: "data and hash arguments required"
+    if (typeof candidatePassword !== 'string' || candidatePassword.trim().length === 0) {
+        return false;
+    }
+    if (!this.password || typeof this.password !== 'string' || this.password.trim().length === 0) {
+        return false;
+    }
+    return await bcrypt.compare(candidatePassword, this.password);
+};
 
 
 export const User=mongoose.model("User",userSchema);
